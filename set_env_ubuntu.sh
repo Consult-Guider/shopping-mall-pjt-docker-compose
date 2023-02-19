@@ -1,6 +1,7 @@
 #!/bin/bash
 # ubuntu 기준.
 
+# docker 설치
 echo "================================"
 echo "(docker install)[0/7]"
 sudo apt-get install -y apt-transport-https ca-certificates curl gnupg-agent software-properties-common
