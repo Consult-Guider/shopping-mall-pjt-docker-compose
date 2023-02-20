@@ -15,7 +15,7 @@ services:
     networks:
       - pjt-bridge
     volumes:
-      - elasticsearch-data:${DIR_MOUNTED_ELASTICSEARCH}
+      - elasticsearch-data:/usr/share/elasticsearch/data
     command: sh -c "
         if [ ! -d ${DIR_MOUNTED_ELASTICSEARCH} ]; then
           mkdir -p ${DIR_MOUNTED_ELASTICSEARCH} && chmod 777 ${DIR_MOUNTED_ELASTICSEARCH};
@@ -35,7 +35,7 @@ services:
     networks:
       - pjt-bridge
     volumes:
-      - mysql-data:${DIR_MOUNTED_MYSQL}
+      - mysql-data:/var/lib/mysql
     command: sh -c "
         if [ ! -d ${DIR_MOUNTED_MYSQL} ]; then
           mkdir -p ${DIR_MOUNTED_MYSQL} && chmod 777 ${DIR_MOUNTED_MYSQL};
