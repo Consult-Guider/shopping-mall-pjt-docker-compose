@@ -5,8 +5,6 @@ services:
     image: elasticsearch:7.17.7
     container_name: elasticsearch_app
     restart: always
-    cap_add:
-      - SYS_NICE
     environment:
       - node.name=single-node
       - discovery.type=single-node
