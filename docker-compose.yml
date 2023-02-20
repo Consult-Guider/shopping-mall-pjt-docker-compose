@@ -15,7 +15,13 @@ services:
     networks:
       - pjt-bridge
     volumes:
-      - ${DIR_MOUNTED_ELASTICSEARCH}:/usr/share/elasticsearch/data
+      - elasticsearch-data:${DIR_MOUNTED_ELASTICSEARCH}
+    command: sh -c "
+        if [ ! -d ${DIR_MOUNTED_ELASTICSEARCH} ]; then
+          mkdir -p ${DIR_MOUNTED_ELASTICSEARCH} && chmod 777 ${DIR_MOUNTED_ELASTICSEARCH};
+        fi;
+        chown -R elasticsearch:elasticsearch /usr/share/elasticsearch/data;
+        su elasticsearch -c /usr/share/elasticsearch/bin/elasticsearch"
 
   mysql:
     image: mysql:8-oracle
@@ -29,7 +35,13 @@ services:
     networks:
       - pjt-bridge
     volumes:
-      - ${DIR_MOUNTED_MYSQL}:/var/lib/mysql
+      - mysql-data:${DIR_MOUNTED_MYSQL}
+    command: sh -c "
+        if [ ! -d ${DIR_MOUNTED_MYSQL} ]; then
+          mkdir -p ${DIR_MOUNTED_MYSQL} && chmod 777 ${DIR_MOUNTED_MYSQL};
+        fi;
+        chown -R mysql:mysql /var/lib/mysql;
+        exec mysqld"
 
   spring:
     container_name: spring_app
@@ -55,3 +67,7 @@ services:
 networks:
   pjt-bridge:
     driver: bridge
+
+volumes:
+  elasticsearch-data:
+  mysql-data:
