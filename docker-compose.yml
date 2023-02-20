@@ -70,4 +70,14 @@ networks:
 
 volumes:
   elasticsearch-data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${DIR_MOUNTED_ELASTICSEARCH}
   mysql-data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${DIR_MOUNTED_MYSQL}
