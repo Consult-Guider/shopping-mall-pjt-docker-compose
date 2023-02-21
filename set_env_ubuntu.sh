@@ -30,6 +30,22 @@ echo "(docker-compose install)[1/2]"
 sudo chmod +x /usr/local/bin/docker-compose
 echo "(docker-compose install)[2/2]"
 
+# 경로 생성 및 권한 부여
+echo "================================"
+echo "(경로 생성 및 권한 부여)[0/2]"
+export $(grep -v '^#' .env | xargs)
+
+function setPath {
+        DIR=$1
+        echo $DIR
+        mkdir -p $DIR
+        sudo chmod 777 $DIR
+}
+echo "(경로 생성 및 권한 부여)[1/2]"
+setPath $DIR_MOUNTED_ELASTICSEARCH
+echo "(경로 생성 및 권한 부여)[2/2]"
+setPath $DIR_MOUNTED_MYSQL
+
 # 완벽한 적용을 위한 서버 리부트
 echo "================================"
 echo "reboot"
